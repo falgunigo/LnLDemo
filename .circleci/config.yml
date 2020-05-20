@@ -20,9 +20,9 @@ jobs:
     steps:
       - checkout
       - persist_to_workspace:
-          root: /root
+          root: /tmp/workspace
           paths:
-             - repo
+             - coderepo
              - .m2
       - run:
           name: Build project
@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /root
+          at: /tmp/workspace
       - run:
           command: |
             python3 samplePythonScript.py
