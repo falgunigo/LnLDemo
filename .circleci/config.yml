@@ -3,6 +3,7 @@ version: 2.1
 
 orbs:
   maven: circleci/maven@0.0.12
+  python: circleci/python@0.3.0
 
 jobs:
   build:
@@ -13,11 +14,23 @@ jobs:
       - run:
           name: Build project
           command: mvn clean verify -DskipTests
+  python_build:
+    docker:
+      - image: circleci/python
+    steps:
+      - checkout
+      - run:
+          command: |
+            python3 samplePythonScript.py
+          name: Run word count script
 
 workflows:
   maven_build:
     jobs:
       - build
+      - python_build:
+          requires:
+            - build
       - maven/test:
           requires:
             - build
