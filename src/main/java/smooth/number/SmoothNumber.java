@@ -55,7 +55,7 @@ public class SmoothNumber {
 
 
   public Smoothness howSmooth() {
-    this.primeFactors();
+//    this.primeFactors();
     return Smoothness.tagOfValue(getLargestPrimeFactor());
   }
 }

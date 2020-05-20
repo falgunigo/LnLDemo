@@ -43,7 +43,7 @@ class MainTest {
   }
 
 
-  @ParameterizedTest(name = "{0}")
+  @ParameterizedTest(name = "{0} {1}")
   @MethodSource("supplyNumbersAndSmoothness")
   void smoothNumber_returnsCorrectSmoothness(int number, Smoothness expectedSmoothness) {
     smoothNumber = new SmoothNumber(number);
