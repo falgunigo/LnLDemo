@@ -17,7 +17,7 @@ jobs:
 workflows:
   maven_build:
     jobs:
-      - build:
+      - build
+      - maven/test:
           requires:
-            - maven/test # checkout, build, test, and upload test results
-
+            - build
