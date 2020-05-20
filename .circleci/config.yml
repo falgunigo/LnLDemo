@@ -19,11 +19,8 @@ jobs:
     executor: java-image
     steps:
       - checkout
-      - persist_to_workspace:
-          root: ~/
-          paths:
-             - coderepo
-             - .m2
+      - attach_workspace:
+          at: ~/
       - run:
           name: Build project
           command: mvn clean verify -DskipTests
@@ -31,8 +28,11 @@ jobs:
     executor: python-image
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - coderepo
+            - .m2
       - run:
           command: |
             python3 samplePythonScript.py
@@ -41,11 +41,10 @@ jobs:
 workflows:
   maven_build:
     jobs:
-      - build
-      - python_build:
+      - python_build
+      - build:
           requires:
-            - build
+            - python_build
       - maven/test:
-          command: '-X exec:java -Dexec.mainClass=smooth.number.Main'
           requires:
             - python_build
