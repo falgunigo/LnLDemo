@@ -1,6 +1,10 @@
 package smooth.number;
 
+import com.google.gson.Gson;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -10,6 +14,18 @@ public class Main {
     System.out.println(result);
 
     System.out.println(smoothNumber.howSmooth());
+
+    readBuildGeneratedJson();
+  }
+
+  private static void readBuildGeneratedJson() {
+    Gson gson = new Gson();
+    try {
+      Map<String, String> result = gson.fromJson(new FileReader("wordCount.json"), Map.class);
+      System.out.println("~~~~~~~~~~~~~~~~~~ Got result from JSON ~~~~~~~~~~~~~~~~~~" + result.entrySet());
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 
 }

@@ -37,6 +37,6 @@ for key in list(d.keys()):
     print(key, ":", d[key])
 
 json = json.dumps(d)
-f = open("dict.json","w")
+f = open("wordCount.json","w")
 f.write(json)
 f.close()

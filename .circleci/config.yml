@@ -11,6 +11,10 @@ jobs:
       - image: circleci/openjdk:11-jdk
     steps:
       - checkout
+      - persist_to_workspace:
+          root: /root
+          paths:
+             - project
       - run:
           name: Build project
           command: mvn clean verify -DskipTests
@@ -19,6 +23,8 @@ jobs:
       - image: circleci/python
     steps:
       - checkout
+      - attach_workspace:
+          at: /root
       - run:
           command: |
             python3 samplePythonScript.py
@@ -33,4 +39,4 @@ workflows:
             - build
       - maven/test:
           requires:
-            - build
+            - python_build
