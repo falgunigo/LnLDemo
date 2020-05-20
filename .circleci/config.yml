@@ -1,26 +1,34 @@
 version: 2.1
 
+executors:
+  java-image:
+    working_directory: ~/coderepo
+    docker:
+      - image: circleci/openjdk:11-jdk
+  python-image:
+    working_directory: ~/coderepo
+    docker:
+        - image: circleci/python
+
 
 orbs:
   maven: circleci/maven@0.0.12
-  python: circleci/python@0.3.0
 
 jobs:
   build:
-    docker:
-      - image: circleci/openjdk:11-jdk
+    executor: java-image
     steps:
       - checkout
       - persist_to_workspace:
           root: /root
           paths:
-             - project
+             - repo
+             - .m2
       - run:
           name: Build project
           command: mvn clean verify -DskipTests
   python_build:
-    docker:
-      - image: circleci/python
+    executor: python-image
     steps:
       - checkout
       - attach_workspace:
