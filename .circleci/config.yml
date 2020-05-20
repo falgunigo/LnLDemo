@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - persist_to_workspace:
-          root: ~/tmp/workspace
+          root: ~/
           paths:
              - coderepo
              - .m2
@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/tmp/workspace
+          at: ~/
       - run:
           command: |
             python3 samplePythonScript.py
